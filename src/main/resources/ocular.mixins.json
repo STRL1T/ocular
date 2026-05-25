@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "starlight_lnk.ocular.client.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "ocular.refmap.json",
+  "client": ["GameRendererOcularMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

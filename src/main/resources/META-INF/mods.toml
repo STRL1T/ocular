@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+
+[[mods]]
+modId = "ocular"
+version = "${mod_version}"
+displayName = "Ocular"
+logoFile="logo.png"
+authors = "Starlight"
+description = '''${mod_description}'''
+
+[[dependencies.ocular]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ocular]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

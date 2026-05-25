@@ -1,0 +1,30 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "ocular:screen_fx",
+  "fragment": "ocular:screen_fx",
+  "attributes": [
+    "Position",
+    "UV0"
+  ],
+  "samplers": [
+    { "name": "DiffuseSampler" }
+  ],
+  "uniforms": [
+    { "name": "Time",               "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "BloodIntensity",     "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "RainIntensity",      "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "SnowIntensity",      "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "SandIntensity",      "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "ExplosionIntensity", "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "CameraYawDelta",     "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "CameraPitch",        "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "StormBlend",         "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "ScreenSize",         "type": "float", "count": 2, "values": [ 1.0, 1.0 ] },
+    { "name": "WaterSplash",        "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "IsColdBiome",        "type": "float", "count": 1, "values": [ 0.0 ] }
+  ]
+}
