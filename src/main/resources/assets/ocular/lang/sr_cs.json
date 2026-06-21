@@ -1,0 +1,8 @@
+{
+  "ocular.config.title": "Okular Podešavanja",
+  "ocular.config.rain_density": "Učestalost kiše: ",
+  "ocular.config.rain_opacity": "Neprozirnost kiše: ",
+  "ocular.config.apply": "Primeni",
+  "ocular.config.reset": "Resetuj",
+  "ocular.config.save_and_close": "Sačuvaj i zatvori"
+}

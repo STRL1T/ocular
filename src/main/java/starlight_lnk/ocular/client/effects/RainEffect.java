@@ -7,8 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 
 public final class RainEffect {
-    // 0.08f - скорость появления капель, 0.02f - скорость исчезновения
-    public static final EffectChannel CHANNEL = new EffectChannel(0.08f, 0.02f);
+    // 0.015f - скорость появления (как у снега), 0.018f - скорость исчезновения (~на полсекунды быстрее снега)
+    public static final EffectChannel CHANNEL = new EffectChannel(0.015f, 0.018f);
     public static boolean isStorming = false;
 
     private RainEffect() {}

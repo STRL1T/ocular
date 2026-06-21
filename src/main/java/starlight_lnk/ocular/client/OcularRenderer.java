@@ -12,6 +12,7 @@ import starlight_lnk.ocular.client.effects.RainEffect;
 import starlight_lnk.ocular.client.effects.SnowEffect;
 import starlight_lnk.ocular.client.effects.SandEffect;
 import starlight_lnk.ocular.client.effects.ExplosionEffect;
+import starlight_lnk.ocular.client.OcularConfig;
 
 public final class OcularRenderer {
     private static ShaderInstance shader;
@@ -145,6 +146,8 @@ public final class OcularRenderer {
 
         if (shader.safeGetUniform("BloodIntensity") != null) shader.safeGetUniform("BloodIntensity").set(apply ? blood : 0f);
         if (shader.safeGetUniform("RainIntensity") != null) shader.safeGetUniform("RainIntensity").set(apply ? smoothedRain : 0f);
+        if (shader.safeGetUniform("RainDensityMulti") != null) shader.safeGetUniform("RainDensityMulti").set(OcularConfig.RAIN_DENSITY.get().floatValue());
+        if (shader.safeGetUniform("RainOpacityMulti") != null) shader.safeGetUniform("RainOpacityMulti").set(OcularConfig.RAIN_OPACITY.get().floatValue());
         if (shader.safeGetUniform("SnowIntensity") != null) shader.safeGetUniform("SnowIntensity").set(apply ? smoothedSnow : 0f);
         if (shader.safeGetUniform("SandIntensity") != null) shader.safeGetUniform("SandIntensity").set(apply ? smoothedSand : 0f);
         if (shader.safeGetUniform("ExplosionIntensity") != null) shader.safeGetUniform("ExplosionIntensity").set(apply ? explosion : 0f);

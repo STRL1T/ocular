@@ -1,0 +1,8 @@
+{
+  "ocular.config.title": "Ocular Configuration",
+  "ocular.config.rain_density": "Rain Frequency: ",
+  "ocular.config.rain_opacity": "Rain Opacity: ",
+  "ocular.config.apply": "Apply",
+  "ocular.config.reset": "Reset",
+  "ocular.config.save_and_close": "Save & Close"
+}

@@ -25,6 +25,8 @@
     { "name": "StormBlend",         "type": "float", "count": 1, "values": [ 0.0 ] },
     { "name": "ScreenSize",         "type": "float", "count": 2, "values": [ 1.0, 1.0 ] },
     { "name": "WaterSplash",        "type": "float", "count": 1, "values": [ 0.0 ] },
-    { "name": "IsColdBiome",        "type": "float", "count": 1, "values": [ 0.0 ] }
+    { "name": "IsColdBiome",        "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "RainDensityMulti",   "type": "float", "count": 1, "values": [ 1.0 ] },
+    { "name": "RainOpacityMulti",   "type": "float", "count": 1, "values": [ 1.0 ] }
   ]
 }

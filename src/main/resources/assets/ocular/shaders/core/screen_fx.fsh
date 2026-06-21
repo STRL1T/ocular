@@ -17,6 +17,9 @@ uniform vec2 ScreenSize;
 uniform float WaterSplash;
 uniform float IsColdBiome;
 
+uniform float RainDensityMulti;
+uniform float RainOpacityMulti;
+
 in vec2 texCoord;
 out vec4 fragColor;
 
@@ -199,7 +202,8 @@ vec3 applySnow(vec3 base, vec2 uv, float intensity) {
 // === БЛЮР (ЗАПОТЕВАНИЕ) ===
 vec3 applyCondensation(vec2 uv, float mask) {
     if (mask <= 0.001) return safeSample(uv).rgb;
-    float aspectRatio = ScreenSize.x / max(ScreenSize.y, 1.0);
+    vec2 screenSize = vec2(ScreenSize.x, ScreenSize.y);
+    float aspectRatio = screenSize.x / max(screenSize.y, 1.0);
     vec3 col = vec3(0.0);
     float radius = 0.015 * mask;
     float h = hash(uv * 200.0);
@@ -216,7 +220,7 @@ vec3 applyCondensation(vec2 uv, float mask) {
     wSum += 2.0;
     col /= wSum;
     vec3 frostColor = vec3(0.85, 0.90, 0.95);
-    return mix(col, col * frostColor * 1.3, 0.33 * mask);
+    return mix(col, col * frostColor * 1.3, 0.3 * mask);
 }
 
 // === ДОЖДЬ И КРОВЬ ===
@@ -334,9 +338,10 @@ vec3 applyRain(vec3 base, vec2 uv, float intensity) {
     float staticStr = smoothstep(-0.5, 1.0, intensity) * 2.0;
     float layer1 = smoothstep(0.25, 0.75, intensity);
     float layer2 = smoothstep(0.0, 0.5, intensity);
-    float mainDens = mix(0.55, 0.35, StormBlend);
-    float statDens = mix(0.30, 0.20, StormBlend);
-    float trailDens = mix(0.55, 0.35, StormBlend);
+    
+    float mainDens = mix(0.55, 0.65, StormBlend) * RainDensityMulti;
+    float statDens = mix(0.30, 0.40, StormBlend) * RainDensityMulti;
+    float trailDens = mix(0.55, 0.65, StormBlend) * RainDensityMulti;
     vec2 c = Drops(uvScaled, dropSpeed, staticStr, layer1, layer2, CameraYawDelta, mainDens, trailDens, statDens);
     vec2 e = vec2(0.001, 0.0);
     float cx = Drops(uvScaled + e, dropSpeed, staticStr, layer1, layer2, CameraYawDelta, mainDens, trailDens, statDens).x;
@@ -344,15 +349,19 @@ vec3 applyRain(vec3 base, vec2 uv, float intensity) {
     vec2 n = vec2(cx - c.x, cy - c.x);
     float nLen = length(n);
     vec2 nDir = nLen > 0.00001 ? n / nLen : vec2(0.0);
-    vec3 refractedColor = safeSample(uv - nDir * c.x * 0.06).rgb;
-    vec3 trailColor = safeSample(uv - nDir * c.y * 0.02).rgb;
+
+    vec3 refractedColor = safeSample(uv - nDir * c.x * 0.12).rgb;
+    vec3 trailColor = safeSample(uv - nDir * c.y * 0.05).rgb;
+
     float edgeDark = smoothstep(0.0, 0.3, c.x) - smoothstep(0.3, 0.8, c.x);
-    vec3 dropColor = refractedColor * (1.0 - edgeDark * 0.15);
-    dropColor = mix(dropColor, vec3(0.2, 0.5, 0.9), 0.02);
+    vec3 dropColor = refractedColor * (1.0 - edgeDark * 0.3);
+    dropColor = mix(dropColor, vec3(0.2, 0.5, 0.9), 0.03);
+
     float highlight = smoothstep(0.3, 0.9, -nDir.y * 0.8 - nDir.x * 0.3) * smoothstep(0.2, 0.8, c.x);
-    dropColor += vec3(1.0) * highlight * 0.15;
-    vec3 result = mix(base, trailColor, clamp(c.y * 0.5, 0.0, 1.0));
-    return mix(result, dropColor, clamp(c.x * 0.6, 0.0, 1.0));
+    dropColor += vec3(1.0) * highlight * 0.6;
+
+    vec3 result = mix(base, trailColor, clamp(c.y * 0.8 * RainOpacityMulti, 0.0, 1.0));
+    return mix(result, dropColor, clamp(c.x * 0.9 * RainOpacityMulti, 0.0, 1.0));
 }
 
 void main() {
@@ -377,12 +386,11 @@ void main() {
 
         vec2 breathUV = texCoord - vec2(0.5, 0.35);
         breathUV.x *= aspectRatio;
-        float breathSpace = smoothstep(0.17, 0.0, length(breathUV));
+        float breathSpace = smoothstep(0.24, 0.0, length(breathUV));
         float breathFog = breathSpace * smoothstep(0.5, 1.0, sin(Time * 0.5)) * 0.85;
 
         float totalFogMask = (baseFog + breathFog) * fogIntensity;
-        vec3 frostColor = vec3(0.85, 0.90, 0.95);
-        color = mix(color, color * frostColor * 1.3, 0.33 * totalFogMask);
+        color = applyCondensation(texCoord, totalFogMask);
     }
 
     color = applySnow(color, texCoord, effSnow);

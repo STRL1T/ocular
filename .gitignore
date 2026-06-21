@@ -1,0 +1,12 @@
+.gradle/
+build/
+run/
+.idea/
+*.iml
+out/
+bin/
+logs/
+.vscode/
+compile_out.txt
+run_client.bat
+ref/

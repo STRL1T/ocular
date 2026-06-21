@@ -1,0 +1,8 @@
+{
+  "ocular.config.title": "Ocular 设定",
+  "ocular.config.rain_density": "雨滴频率: ",
+  "ocular.config.rain_opacity": "雨滴不透明度: ",
+  "ocular.config.apply": "应用",
+  "ocular.config.reset": "重置",
+  "ocular.config.save_and_close": "保存并关闭"
+}

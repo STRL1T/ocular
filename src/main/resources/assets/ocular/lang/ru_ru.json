@@ -1,0 +1,8 @@
+{
+  "ocular.config.title": "Настройки Ocular",
+  "ocular.config.rain_density": "Частота капель: ",
+  "ocular.config.rain_opacity": "Непрозрачность: ",
+  "ocular.config.apply": "Применить",
+  "ocular.config.reset": "Сброс",
+  "ocular.config.save_and_close": "Готово"
+}
